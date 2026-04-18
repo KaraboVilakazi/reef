@@ -1,0 +1,17 @@
+# .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+*.nupkg
+appsettings.Development.json
+
+# Angular
+fintrack-ui/node_modules/
+fintrack-ui/dist/
+fintrack-ui/.angular/
+
+# General
+.DS_Store
+*.log

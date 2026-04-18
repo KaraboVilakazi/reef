@@ -1,0 +1,24 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$blue-palette
+  )
+));
+
+html {
+  @include mat.all-component-themes($theme);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Roboto, sans-serif;
+  background: #fafafa;
+}
+
+a { color: inherit; }
