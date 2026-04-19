@@ -22,7 +22,7 @@ namespace Reef.API.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("FinTrack.API.Domain.Entities.Account", b =>
+            modelBuilder.Entity("Reef.API.Domain.Entities.Account", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -57,7 +57,7 @@ namespace Reef.API.Migrations
                     b.ToTable("Accounts");
                 });
 
-            modelBuilder.Entity("FinTrack.API.Domain.Entities.Budget", b =>
+            modelBuilder.Entity("Reef.API.Domain.Entities.Budget", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -92,7 +92,7 @@ namespace Reef.API.Migrations
                     b.ToTable("Budgets");
                 });
 
-            modelBuilder.Entity("FinTrack.API.Domain.Entities.Category", b =>
+            modelBuilder.Entity("Reef.API.Domain.Entities.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -201,7 +201,7 @@ namespace Reef.API.Migrations
                         });
                 });
 
-            modelBuilder.Entity("FinTrack.API.Domain.Entities.Transaction", b =>
+            modelBuilder.Entity("Reef.API.Domain.Entities.Transaction", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -256,7 +256,7 @@ namespace Reef.API.Migrations
                     b.ToTable("Transactions");
                 });
 
-            modelBuilder.Entity("FinTrack.API.Domain.Entities.User", b =>
+            modelBuilder.Entity("Reef.API.Domain.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -289,9 +289,9 @@ namespace Reef.API.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("FinTrack.API.Domain.Entities.Account", b =>
+            modelBuilder.Entity("Reef.API.Domain.Entities.Account", b =>
                 {
-                    b.HasOne("FinTrack.API.Domain.Entities.User", "User")
+                    b.HasOne("Reef.API.Domain.Entities.User", "User")
                         .WithMany("Accounts")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -300,15 +300,15 @@ namespace Reef.API.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("FinTrack.API.Domain.Entities.Budget", b =>
+            modelBuilder.Entity("Reef.API.Domain.Entities.Budget", b =>
                 {
-                    b.HasOne("FinTrack.API.Domain.Entities.Category", "Category")
+                    b.HasOne("Reef.API.Domain.Entities.Category", "Category")
                         .WithMany("Budgets")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FinTrack.API.Domain.Entities.User", "User")
+                    b.HasOne("Reef.API.Domain.Entities.User", "User")
                         .WithMany("Budgets")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -319,21 +319,21 @@ namespace Reef.API.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("FinTrack.API.Domain.Entities.Transaction", b =>
+            modelBuilder.Entity("Reef.API.Domain.Entities.Transaction", b =>
                 {
-                    b.HasOne("FinTrack.API.Domain.Entities.Account", "Account")
+                    b.HasOne("Reef.API.Domain.Entities.Account", "Account")
                         .WithMany("Transactions")
                         .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FinTrack.API.Domain.Entities.Category", "Category")
+                    b.HasOne("Reef.API.Domain.Entities.Category", "Category")
                         .WithMany("Transactions")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FinTrack.API.Domain.Entities.Account", null)
+                    b.HasOne("Reef.API.Domain.Entities.Account", null)
                         .WithMany()
                         .HasForeignKey("DestinationAccountId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -343,19 +343,19 @@ namespace Reef.API.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("FinTrack.API.Domain.Entities.Account", b =>
+            modelBuilder.Entity("Reef.API.Domain.Entities.Account", b =>
                 {
                     b.Navigation("Transactions");
                 });
 
-            modelBuilder.Entity("FinTrack.API.Domain.Entities.Category", b =>
+            modelBuilder.Entity("Reef.API.Domain.Entities.Category", b =>
                 {
                     b.Navigation("Budgets");
 
                     b.Navigation("Transactions");
                 });
 
-            modelBuilder.Entity("FinTrack.API.Domain.Entities.User", b =>
+            modelBuilder.Entity("Reef.API.Domain.Entities.User", b =>
                 {
                     b.Navigation("Accounts");
 

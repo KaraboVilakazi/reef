@@ -26,7 +26,7 @@ A personal finance platform built with **.NET 8** and **Angular 19**, featuring 
 
 ```
 reef/
-├── FinTrack.API/          # .NET 8 Web API
+├── Reef.API/          # .NET 8 Web API
 │   ├── Controllers/       # Auth, Account, Transaction, Budget
 │   ├── Services/          # Business logic layer
 │   ├── Domain/            # Entities & enums
@@ -35,7 +35,7 @@ reef/
 │   ├── Data/              # EF Core DbContext
 │   └── Migrations/        # Database migrations
 │
-└── fintrack-ui/           # Angular 19 frontend
+└── reef-ui/           # Angular 19 frontend
     └── src/app/
         ├── core/          # Services, models, guards, interceptors
         └── features/      # Dashboard, Accounts, Transactions, Budgets, Auth
@@ -51,7 +51,7 @@ reef/
 ### API
 
 ```bash
-cd FinTrack.API
+cd Reef.API
 
 # Update connection string in appsettings.json
 # then run migrations
@@ -65,7 +65,7 @@ dotnet run
 ### Frontend
 
 ```bash
-cd fintrack-ui
+cd reef-ui
 npm install
 ng serve
 # Runs on http://localhost:4200
