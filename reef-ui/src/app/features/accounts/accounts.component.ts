@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, NgClass } from '@angular/common';
 import { AccountService } from '../../core/services/account.service';
 import { Account } from '../../core/models/account.models';
 
 @Component({
   selector: 'app-accounts',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink, CurrencyPipe],
+  imports: [ReactiveFormsModule, RouterLink, CurrencyPipe, NgClass],
   template: `
     <div class="page">
       <div class="page-header">
