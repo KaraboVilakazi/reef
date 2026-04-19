@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
 import { CurrencyPipe, NgClass } from '@angular/common';
 import { BudgetService } from '../../core/services/budget.service';
 import { Budget } from '../../core/models/budget.models';
@@ -8,7 +7,7 @@ import { Budget } from '../../core/models/budget.models';
 @Component({
   selector: 'app-budgets',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink, CurrencyPipe, NgClass],
+  imports: [ReactiveFormsModule, CurrencyPipe, NgClass],
   template: `
     <div class="page">
       <div class="page-header">
