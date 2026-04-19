@@ -12,7 +12,8 @@ using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // ── Database — support Railway's DATABASE_URL env var ──────────────────────
-var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+var databaseUrl = Environment.GetEnvironmentVariable("DB_URL")
+                  ?? Environment.GetEnvironmentVariable("DATABASE_URL");
 string connectionString;
 if (!string.IsNullOrEmpty(databaseUrl))
 {
