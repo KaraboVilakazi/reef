@@ -11,14 +11,22 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ── Database — support Railway's DATABASE_PUBLIC_URL env var ───────────────
-// Railway injects DATABASE_URL as the internal hostname (unreachable without
-// private networking). DATABASE_PUBLIC_URL is the externally reachable proxy.
-var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_PUBLIC_URL")
-                  ?? Environment.GetEnvironmentVariable("DATABASE_URL");
-var connectionString = !string.IsNullOrEmpty(databaseUrl)
-    ? databaseUrl
-    : builder.Configuration.GetConnectionString("DefaultConnection")!;
+// ── Database — support Railway's DATABASE_URL env var ──────────────────────
+var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+string connectionString;
+if (!string.IsNullOrEmpty(databaseUrl))
+{
+    var uri      = new Uri(databaseUrl);
+    var userInfo = uri.UserInfo.Split(':');
+    connectionString = $"Host={uri.Host};Port={uri.Port};" +
+                       $"Database={uri.AbsolutePath.TrimStart('/')};" +
+                       $"Username={userInfo[0]};Password={userInfo[1]};" +
+                       "Trust Server Certificate=true";
+}
+else
+{
+    connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
+}
 
 builder.Services.AddDbContext<ReefDbContext>(options =>
     options.UseNpgsql(connectionString, o => o.EnableRetryOnFailure()));
