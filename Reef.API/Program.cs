@@ -11,9 +11,21 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ── Database ────────────────────────────────────────────────────────────────
-builder.Services.AddDbContext<ReefDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+// ── Database — support Railway's DATABASE_URL env var ──────────────────────
+var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+string connectionString;
+if (!string.IsNullOrEmpty(databaseUrl))
+{
+    // Railway provides postgres://user:pass@host:port/db — convert to Npgsql format
+    var uri = new Uri(databaseUrl);
+    var userInfo = uri.UserInfo.Split(':');
+    connectionString = $"Host={uri.Host};Port={uri.Port};Database={uri.AbsolutePath.TrimStart('/')};Username={userInfo[0]};Password={userInfo[1]};SSL Mode=Require;Trust Server Certificate=true";
+}
+else
+{
+    connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
+}
+builder.Services.AddDbContext<ReefDbContext>(options => options.UseNpgsql(connectionString));
 
 // ── JWT Authentication ──────────────────────────────────────────────────────
 var jwtSecret = builder.Configuration["Jwt:Secret"]!;
@@ -54,10 +66,14 @@ builder.Services.AddAuthorization();
 // ── SignalR ─────────────────────────────────────────────────────────────────
 builder.Services.AddSignalR();
 
-// ── CORS — allow Angular dev server ────────────────────────────────────────
+// ── CORS — allow Angular dev server + Vercel production frontend ───────────
+var corsOrigins = new List<string> { "http://localhost:4200" };
+var vercelUrl = Environment.GetEnvironmentVariable("FRONTEND_URL");
+if (!string.IsNullOrEmpty(vercelUrl)) corsOrigins.Add(vercelUrl);
+
 builder.Services.AddCors(options =>
     options.AddPolicy("AllowAngular", policy =>
-        policy.WithOrigins("http://localhost:4200")
+        policy.WithOrigins(corsOrigins.ToArray())
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials()));  // required for SignalR
