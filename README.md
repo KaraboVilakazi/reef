@@ -2,6 +2,8 @@
 
 A personal finance platform built with **.NET 8** and **Angular 19**, featuring real-time balance monitoring via SignalR WebSockets.
 
+**Live demo:** [reef-ui-six.vercel.app](https://reef-ui-six.vercel.app) · **API:** [reef-production-8d6a.up.railway.app](https://reef-production-8d6a.up.railway.app/swagger)
+
 ## Stack
 
 | Layer | Tech |
