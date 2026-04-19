@@ -1,129 +1,339 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { CurrencyPipe, NgClass } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatButtonModule } from '@angular/material/button';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatIconModule } from '@angular/material/icon';
+import { CurrencyPipe, NgClass, PercentPipe } from '@angular/common';
 import { BudgetService } from '../../core/services/budget.service';
 import { Budget } from '../../core/models/budget.models';
 
 @Component({
   selector: 'app-budgets',
   standalone: true,
-  imports: [ReactiveFormsModule, MatCardModule, MatFormFieldModule, MatInputModule,
-            MatSelectModule, MatButtonModule, MatProgressBarModule, MatIconModule,
-            RouterLink, CurrencyPipe, NgClass],
+  imports: [ReactiveFormsModule, RouterLink, CurrencyPipe, NgClass, PercentPipe],
   template: `
     <div class="page">
-      <div class="header">
-        <h1>Budgets — {{ monthName }}</h1>
-        <a mat-button routerLink="/dashboard">← Dashboard</a>
+      <div class="page-header">
+        <div>
+          <h1>Budgets</h1>
+          <p class="subtitle">{{ monthName }} spending limits</p>
+        </div>
+        <a class="btn-outline" routerLink="/dashboard">← Back</a>
       </div>
 
       <div class="layout">
         <!-- Budget cards -->
-        <div>
+        <div class="budgets-list">
           @for (budget of budgets; track budget.id) {
-            <mat-card class="budget-card" [ngClass]="{ 'over': budget.isOverBudget, 'warning': budget.isProjectedToOverrun && !budget.isOverBudget }">
-              <mat-card-content>
-                <div class="budget-header">
-                  <span class="category">{{ budget.category }}</span>
-                  @if (budget.isOverBudget) {
-                    <span class="badge over">Over budget</span>
-                  } @else if (budget.isProjectedToOverrun) {
-                    <span class="badge warning">Projected overrun</span>
-                  }
+            <div class="budget-card" [ngClass]="budget.isOverBudget ? 'over' : budget.isProjectedToOverrun ? 'warning' : 'ok'">
+              <div class="budget-top">
+                <div class="budget-cat-wrap">
+                  <span class="budget-cat-icon">{{ categoryIcon(budget.category) }}</span>
+                  <span class="budget-cat">{{ budget.category }}</span>
                 </div>
+                @if (budget.isOverBudget) {
+                  <span class="badge danger">Over budget</span>
+                } @else if (budget.isProjectedToOverrun) {
+                  <span class="badge warning">Projected overrun</span>
+                } @else {
+                  <span class="badge success">On track</span>
+                }
+              </div>
 
-                <mat-progress-bar
-                  [value]="progressPercent(budget)"
-                  [color]="budget.isOverBudget ? 'warn' : budget.isProjectedToOverrun ? 'accent' : 'primary'"
-                  class="progress" />
-
-                <div class="budget-stats">
-                  <span>{{ budget.actualSpend | currency:'ZAR':'symbol':'1.0-0' }} spent</span>
-                  <span>{{ budget.limitAmount | currency:'ZAR':'symbol':'1.0-0' }} limit</span>
+              <!-- Progress bar -->
+              <div class="progress-track">
+                <div class="progress-fill"
+                  [ngClass]="budget.isOverBudget ? 'fill-danger' : budget.isProjectedToOverrun ? 'fill-warning' : 'fill-ok'"
+                  [style.width.%]="progressPercent(budget)">
                 </div>
+              </div>
 
-                <p class="burn-rate">
-                  Projected end-of-month: <strong>{{ budget.burnRate | currency:'ZAR':'symbol':'1.0-0' }}</strong>
-                  ({{ budget.remainingAmount | currency:'ZAR':'symbol':'1.0-0' }} remaining)
-                </p>
-              </mat-card-content>
-            </mat-card>
+              <div class="budget-stats">
+                <div class="stat-item">
+                  <p class="stat-val">{{ budget.actualSpend | currency:'ZAR':'symbol':'1.0-0' }}</p>
+                  <p class="stat-lbl">Spent</p>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                  <p class="stat-val">{{ budget.remainingAmount | currency:'ZAR':'symbol':'1.0-0' }}</p>
+                  <p class="stat-lbl">Remaining</p>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                  <p class="stat-val">{{ budget.limitAmount | currency:'ZAR':'symbol':'1.0-0' }}</p>
+                  <p class="stat-lbl">Budget</p>
+                </div>
+              </div>
+
+              <div class="burn-rate">
+                Projected end-of-month spend:
+                <strong>{{ budget.burnRate | currency:'ZAR':'symbol':'1.0-0' }}</strong>
+              </div>
+            </div>
           }
+
           @if (!budgets.length) {
-            <p class="empty">No budgets set for this month. Create one to track your spending.</p>
+            <div class="card empty-state">
+              <p>No budgets set for {{ monthName }}.</p>
+              <p>Set a budget to track your spending against monthly limits.</p>
+            </div>
           }
         </div>
 
         <!-- Set budget form -->
-        <mat-card class="create-card">
-          <mat-card-header><mat-card-title>Set Budget</mat-card-title></mat-card-header>
-          <mat-card-content>
-            <form [formGroup]="form" (ngSubmit)="save()">
-              <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Category</mat-label>
-                <mat-select formControlName="categoryId">
-                  <mat-option [value]="4">Groceries</mat-option>
-                  <mat-option [value]="5">Transport</mat-option>
-                  <mat-option [value]="6">Rent</mat-option>
-                  <mat-option [value]="7">Utilities</mat-option>
-                  <mat-option [value]="8">Entertainment</mat-option>
-                  <mat-option [value]="9">Healthcare</mat-option>
-                  <mat-option [value]="10">Education</mat-option>
-                  <mat-option [value]="11">Clothing</mat-option>
-                  <mat-option [value]="12">Other</mat-option>
-                </mat-select>
-              </mat-form-field>
+        <div class="card create-card">
+          <div class="card-header">
+            <h2>Set Budget</h2>
+          </div>
 
-              <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Monthly Limit (ZAR)</mat-label>
-                <input matInput type="number" formControlName="limitAmount" />
-              </mat-form-field>
+          <form [formGroup]="form" (ngSubmit)="save()">
+            <div class="field">
+              <label>Category</label>
+              <div class="select-wrap">
+                <select formControlName="categoryId">
+                  <option [value]="4">Groceries</option>
+                  <option [value]="5">Transport / Petrol</option>
+                  <option [value]="6">Rent</option>
+                  <option [value]="7">Utilities</option>
+                  <option [value]="8">Entertainment</option>
+                  <option [value]="9">Healthcare</option>
+                  <option [value]="10">Education / School Fees</option>
+                  <option [value]="11">Clothing</option>
+                  <option [value]="12">Airtime / Data</option>
+                  <option [value]="12">Other</option>
+                </select>
+                <svg class="select-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+            </div>
 
-              @if (error) { <p class="error">{{ error }}</p> }
+            <div class="field">
+              <label>Monthly Limit (ZAR)</label>
+              <input type="number" formControlName="limitAmount" placeholder="e.g. 3000" />
+            </div>
 
-              <button mat-flat-button color="primary" class="full-width" type="submit" [disabled]="form.invalid || saving">
-                {{ saving ? 'Saving...' : 'Set Budget' }}
-              </button>
-            </form>
-          </mat-card-content>
-        </mat-card>
+            @if (error) {
+              <div class="error-banner">{{ error }}</div>
+            }
+
+            <button type="submit" class="btn-primary full-width" [disabled]="form.invalid || saving">
+              {{ saving ? 'Saving...' : 'Set Budget' }}
+            </button>
+          </form>
+
+          <div class="budget-tips">
+            <p class="tips-title">Budgeting tips</p>
+            <div class="tip">
+              <span class="tip-icon">💡</span>
+              <p>The <strong>50/30/20 rule</strong>: 50% needs, 30% wants, 20% savings.</p>
+            </div>
+            <div class="tip">
+              <span class="tip-icon">📊</span>
+              <p>Track <strong>Transport & Petrol</strong> — one of SA's fastest-rising costs.</p>
+            </div>
+            <div class="tip">
+              <span class="tip-icon">📱</span>
+              <p>Don't forget <strong>Airtime/Data</strong> in your monthly budget.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   `,
   styles: [`
-    .page { padding: 24px; max-width: 1000px; margin: 0 auto; }
-    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
-    .header h1 { margin: 0; }
-    .layout { display: grid; grid-template-columns: 1fr 340px; gap: 24px; }
-    .budget-card { margin-bottom: 16px; border-left: 4px solid #2196f3; }
-    .budget-card.over { border-left-color: #f44336; }
-    .budget-card.warning { border-left-color: #ff9800; }
-    .budget-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-    .category { font-weight: 600; font-size: 16px; }
-    .badge { padding: 2px 10px; border-radius: 12px; font-size: 12px; font-weight: 500; }
-    .badge.over    { background: #ffebee; color: #c62828; }
-    .badge.warning { background: #fff8e1; color: #e65100; }
-    .progress { margin-bottom: 8px; }
-    .budget-stats { display: flex; justify-content: space-between; font-size: 13px; color: #555; }
-    .burn-rate { font-size: 13px; color: #666; margin: 8px 0 0; }
-    .full-width { width: 100%; margin-bottom: 12px; }
-    .error { color: #f44336; font-size: 14px; }
-    .empty { color: #999; text-align: center; padding: 40px; }
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .budgets-list { display: flex; flex-direction: column; gap: 16px; }
+
+    .budget-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,.07);
+      border-left: 4px solid transparent;
+    }
+    .budget-card.ok      { border-left-color: #16A34A; }
+    .budget-card.warning { border-left-color: #D97706; }
+    .budget-card.over    { border-left-color: #EF4444; }
+
+    .budget-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .budget-cat-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .budget-cat-icon { font-size: 20px; line-height: 1; }
+    .budget-cat {
+      font-size: 15px;
+      font-weight: 600;
+      color: #0F172A;
+    }
+
+    /* Badge override for local context */
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .2px;
+    }
+    .badge.success { background: #DCFCE7; color: #16A34A; }
+    .badge.warning { background: #FEF3C7; color: #D97706; }
+    .badge.danger  { background: #FEE2E2; color: #EF4444; }
+
+    /* Progress bar */
+    .progress-track {
+      height: 8px;
+      background: #F1F5F9;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+    .progress-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width .4s ease;
+    }
+    .fill-ok      { background: #22C55E; }
+    .fill-warning { background: #F59E0B; }
+    .fill-danger  { background: #EF4444; }
+
+    /* Stats row */
+    .budget-stats {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+    .stat-item { flex: 1; text-align: center; }
+    .stat-val {
+      margin: 0 0 2px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #0F172A;
+    }
+    .stat-lbl { margin: 0; font-size: 11px; color: #94A3B8; text-transform: uppercase; letter-spacing: .4px; }
+    .stat-divider { width: 1px; height: 32px; background: #F1F5F9; flex-shrink: 0; }
+
+    .burn-rate {
+      font-size: 12px;
+      color: #94A3B8;
+      padding-top: 12px;
+      border-top: 1px solid #F8FAFC;
+    }
+    .burn-rate strong { color: #374151; }
+
+    /* Create card */
+    .create-card { position: sticky; top: 80px; }
+
+    .field { margin-bottom: 16px; }
+    .field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: #374151;
+      margin-bottom: 6px;
+    }
+    .field input {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      color: #0F172A;
+      background: #fff;
+      outline: none;
+      transition: border-color .15s, box-shadow .15s;
+      box-sizing: border-box;
+    }
+    .field input:focus {
+      border-color: #00C896;
+      box-shadow: 0 0 0 3px rgba(0,200,150,.12);
+    }
+    .field input::placeholder { color: #CBD5E1; }
+
+    .select-wrap { position: relative; }
+    .select-wrap select {
+      width: 100%;
+      padding: 11px 32px 11px 14px;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      color: #0F172A;
+      background: #fff;
+      outline: none;
+      appearance: none;
+      cursor: pointer;
+      transition: border-color .15s;
+    }
+    .select-wrap select:focus {
+      border-color: #00C896;
+      box-shadow: 0 0 0 3px rgba(0,200,150,.12);
+    }
+    .select-arrow {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+
+    .full-width { width: 100%; margin-top: 4px; }
+
+    .error-banner {
+      background: #FEE2E2;
+      color: #B91C1C;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+
+    /* Tips section */
+    .budget-tips {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid #F1F5F9;
+    }
+    .tips-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #94A3B8;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      margin: 0 0 12px;
+    }
+    .tip {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+      align-items: flex-start;
+    }
+    .tip-icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+    .tip p { margin: 0; font-size: 12px; color: #64748B; line-height: 1.5; }
+    .tip strong { color: #374151; }
+
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      .create-card { position: static; }
+    }
   `]
 })
 export class BudgetsComponent implements OnInit {
   budgets: Budget[] = [];
   form: FormGroup;
-  saving  = false;
-  error   = '';
+  saving    = false;
+  error     = '';
   monthName = '';
 
   constructor(private budgetService: BudgetService, private fb: FormBuilder) {
@@ -138,12 +348,22 @@ export class BudgetsComponent implements OnInit {
     this.loadBudgets();
   }
 
-  private loadBudgets() {
-    this.budgetService.getBudgets().subscribe(b => this.budgets = b);
+  categoryIcon(category: string): string {
+    const icons: Record<string, string> = {
+      Groceries: '🛒', Transport: '🚗', Rent: '🏠', Utilities: '💡',
+      Entertainment: '🎬', Healthcare: '🏥', Education: '📚',
+      Clothing: '👕', Other: '📦', Airtime: '📱', Salary: '💼',
+      Freelance: '💻', Investment: '📈'
+    };
+    return icons[category] ?? '💳';
   }
 
   progressPercent(budget: Budget): number {
     return Math.min((budget.actualSpend / budget.limitAmount) * 100, 100);
+  }
+
+  private loadBudgets() {
+    this.budgetService.getBudgets().subscribe(b => this.budgets = b);
   }
 
   save() {

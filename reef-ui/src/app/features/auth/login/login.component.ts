@@ -1,59 +1,240 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
 import { AuthService } from '../../../core/services/auth.service';
 import { FinanceHubService } from '../../../core/services/finance-hub.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink],
   template: `
-    <div class="auth-container">
-      <mat-card class="auth-card">
-        <mat-card-header>
-          <mat-card-title>Reef</mat-card-title>
-          <mat-card-subtitle>Sign in to your account</mat-card-subtitle>
-        </mat-card-header>
+    <div class="auth-layout">
+      <!-- Left brand panel -->
+      <div class="brand-panel">
+        <div class="brand-inner">
+          <div class="brand-logo">R</div>
+          <h1 class="brand-name">Reef</h1>
+          <p class="brand-tagline">Your money, clearly.</p>
+          <ul class="brand-features">
+            <li>
+              <span class="feat-icon">&#10003;</span>
+              Multi-account management
+            </li>
+            <li>
+              <span class="feat-icon">&#10003;</span>
+              Real-time balance updates
+            </li>
+            <li>
+              <span class="feat-icon">&#10003;</span>
+              Smart budget tracking
+            </li>
+            <li>
+              <span class="feat-icon">&#10003;</span>
+              Spend analytics by category
+            </li>
+          </ul>
+        </div>
+      </div>
 
-        <mat-card-content>
+      <!-- Right form panel -->
+      <div class="form-panel">
+        <div class="form-inner">
+          <div class="form-header">
+            <h2>Welcome back</h2>
+            <p>Sign in to your Reef account</p>
+          </div>
+
           <form [formGroup]="form" (ngSubmit)="submit()">
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Email</mat-label>
-              <input matInput type="email" formControlName="email" />
-            </mat-form-field>
+            <div class="field">
+              <label for="email">Email address</label>
+              <input id="email" type="email" formControlName="email" placeholder="you@example.com" />
+            </div>
 
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Password</mat-label>
-              <input matInput type="password" formControlName="password" />
-            </mat-form-field>
+            <div class="field">
+              <label for="password">Password</label>
+              <input id="password" type="password" formControlName="password" placeholder="Your password" />
+            </div>
 
             @if (error) {
-              <p class="error-text">{{ error }}</p>
+              <div class="error-banner">{{ error }}</div>
             }
 
-            <button mat-flat-button color="primary" class="full-width" type="submit" [disabled]="form.invalid || loading">
+            <button type="submit" class="submit-btn" [disabled]="form.invalid || loading">
               {{ loading ? 'Signing in...' : 'Sign In' }}
             </button>
           </form>
-        </mat-card-content>
 
-        <mat-card-actions>
-          <p class="text-center">Don't have an account? <a routerLink="/auth/register">Register</a></p>
-        </mat-card-actions>
-      </mat-card>
+          <p class="switch-link">
+            Don't have an account? <a routerLink="/auth/register">Create one</a>
+          </p>
+        </div>
+      </div>
     </div>
   `,
   styles: [`
-    .auth-container { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #f5f5f5; }
-    .auth-card { width: 100%; max-width: 400px; padding: 16px; }
-    .full-width { width: 100%; margin-bottom: 12px; }
-    .error-text { color: #f44336; font-size: 14px; margin-bottom: 8px; }
-    .text-center { text-align: center; margin-top: 8px; }
+    .auth-layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Left panel */
+    .brand-panel {
+      flex: 0 0 45%;
+      background: linear-gradient(160deg, #0D1B2A 0%, #1E3A5F 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px;
+    }
+    .brand-inner { max-width: 320px; }
+    .brand-logo {
+      width: 52px;
+      height: 52px;
+      background: #00C896;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 700;
+      color: #0D1B2A;
+      margin-bottom: 20px;
+    }
+    .brand-name {
+      color: #fff;
+      font-size: 32px;
+      font-weight: 700;
+      margin: 0 0 8px;
+      letter-spacing: -.5px;
+    }
+    .brand-tagline {
+      color: rgba(255,255,255,.55);
+      font-size: 16px;
+      margin: 0 0 40px;
+    }
+    .brand-features {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .brand-features li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: rgba(255,255,255,.75);
+      font-size: 14px;
+    }
+    .feat-icon {
+      width: 22px;
+      height: 22px;
+      background: rgba(0,200,150,.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #00C896;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* Right panel */
+    .form-panel {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px;
+      background: #F0F2F7;
+    }
+    .form-inner {
+      width: 100%;
+      max-width: 400px;
+      background: #fff;
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: 0 4px 24px rgba(0,0,0,.08);
+    }
+    .form-header { margin-bottom: 28px; }
+    .form-header h2 {
+      margin: 0 0 6px;
+      font-size: 22px;
+      font-weight: 700;
+      color: #0F172A;
+      letter-spacing: -.3px;
+    }
+    .form-header p { margin: 0; font-size: 14px; color: #64748B; }
+
+    .field { margin-bottom: 16px; }
+    .field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: #374151;
+      margin-bottom: 6px;
+    }
+    .field input {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      color: #0F172A;
+      background: #fff;
+      outline: none;
+      transition: border-color .15s, box-shadow .15s;
+      box-sizing: border-box;
+    }
+    .field input:focus {
+      border-color: #00C896;
+      box-shadow: 0 0 0 3px rgba(0,200,150,.12);
+    }
+    .field input::placeholder { color: #CBD5E1; }
+
+    .error-banner {
+      background: #FEE2E2;
+      color: #B91C1C;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 12px;
+      background: #00C896;
+      color: #0D1B2A;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      margin-top: 4px;
+      transition: background .15s;
+    }
+    .submit-btn:hover:not(:disabled) { background: #00A87E; }
+    .submit-btn:disabled { opacity: .6; cursor: not-allowed; }
+
+    .switch-link {
+      text-align: center;
+      font-size: 13px;
+      color: #64748B;
+      margin: 20px 0 0;
+    }
+    .switch-link a { color: #00A87E; font-weight: 500; }
+    .switch-link a:hover { text-decoration: underline; }
+
+    @media (max-width: 768px) {
+      .brand-panel { display: none; }
+      .form-panel { padding: 24px; }
+    }
   `]
 })
 export class LoginComponent {

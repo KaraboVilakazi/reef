@@ -2,94 +2,301 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { AccountService } from '../../core/services/account.service';
 import { Account } from '../../core/models/account.models';
 
 @Component({
   selector: 'app-accounts',
   standalone: true,
-  imports: [ReactiveFormsModule, MatCardModule, MatFormFieldModule, MatInputModule,
-            MatSelectModule, MatButtonModule, MatIconModule, RouterLink, CurrencyPipe],
+  imports: [ReactiveFormsModule, RouterLink, CurrencyPipe],
   template: `
     <div class="page">
-      <div class="header">
-        <h1>Accounts</h1>
-        <a mat-button routerLink="/dashboard">← Dashboard</a>
+      <div class="page-header">
+        <div>
+          <h1>Accounts</h1>
+          <p class="subtitle">Manage your linked bank accounts</p>
+        </div>
+        <a class="btn-outline" routerLink="/dashboard">← Back</a>
       </div>
 
       <div class="layout">
-        <!-- Account list -->
-        <div class="account-list">
+        <!-- Account cards -->
+        <div class="accounts-grid">
           @for (account of accounts; track account.id) {
-            <mat-card class="account-card">
-              <mat-card-content>
-                <div class="account-header">
-                  <div>
-                    <h3>{{ account.name }}</h3>
-                    <span class="chip">{{ account.accountType }}</span>
-                  </div>
-                  <p class="balance">{{ account.balance | currency:'ZAR':'symbol':'1.2-2' }}</p>
+            <div class="bank-card" [ngClass]="'card-' + account.accountType.toLowerCase()">
+              <div class="bank-card-top">
+                <div class="bank-card-type">{{ account.accountType }} Account</div>
+                <div class="bank-card-chip">
+                  <svg width="28" height="22" viewBox="0 0 28 22" fill="none">
+                    <rect width="28" height="22" rx="4" fill="rgba(255,255,255,.25)"/>
+                    <line x1="0" y1="11" x2="28" y2="11" stroke="rgba(255,255,255,.2)" stroke-width="1"/>
+                    <line x1="14" y1="0" x2="14" y2="22" stroke="rgba(255,255,255,.2)" stroke-width="1"/>
+                  </svg>
                 </div>
-                <a mat-stroked-button [routerLink]="['/transactions', account.id]">View Transactions</a>
-              </mat-card-content>
-            </mat-card>
+              </div>
+              <div class="bank-card-name">{{ account.name }}</div>
+              <div class="bank-card-balance">
+                <span class="bank-card-label">Available Balance</span>
+                <span class="bank-card-amount">{{ account.balance | currency:'ZAR':'symbol':'1.2-2' }}</span>
+              </div>
+              <a class="bank-card-btn" [routerLink]="['/transactions', account.id]">
+                View Transactions →
+              </a>
+            </div>
           }
+
           @if (!accounts.length && !loading) {
-            <p class="empty">No accounts yet. Create one to get started.</p>
+            <div class="card empty-state">
+              <p>No accounts yet. Create your first account.</p>
+            </div>
           }
         </div>
 
         <!-- Create form -->
-        <mat-card class="create-card">
-          <mat-card-header>
-            <mat-card-title>New Account</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <form [formGroup]="form" (ngSubmit)="create()">
-              <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Account Name</mat-label>
-                <input matInput formControlName="name" placeholder="e.g. FNB Cheque" />
-              </mat-form-field>
+        <div class="card create-card">
+          <div class="card-header">
+            <h2>New Account</h2>
+          </div>
 
-              <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Account Type</mat-label>
-                <mat-select formControlName="accountType">
-                  <mat-option value="Cheque">Cheque</mat-option>
-                  <mat-option value="Savings">Savings</mat-option>
-                  <mat-option value="FixedDeposit">Fixed Deposit</mat-option>
-                </mat-select>
-              </mat-form-field>
+          <form [formGroup]="form" (ngSubmit)="create()">
+            <div class="field">
+              <label for="name">Account Name</label>
+              <input id="name" formControlName="name" placeholder="e.g. Capitec Cheque" />
+            </div>
 
-              @if (error) { <p class="error">{{ error }}</p> }
+            <div class="field">
+              <label for="type">Account Type</label>
+              <div class="select-wrap">
+                <select id="type" formControlName="accountType">
+                  <option value="Cheque">Cheque Account</option>
+                  <option value="Savings">Savings Account</option>
+                  <option value="FixedDeposit">Fixed Deposit</option>
+                </select>
+                <svg class="select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+            </div>
 
-              <button mat-flat-button color="primary" class="full-width" type="submit" [disabled]="form.invalid || saving">
-                {{ saving ? 'Creating...' : 'Create Account' }}
-              </button>
-            </form>
-          </mat-card-content>
-        </mat-card>
+            @if (error) {
+              <div class="error-banner">{{ error }}</div>
+            }
+
+            <button type="submit" class="btn-primary full-width" [disabled]="form.invalid || saving">
+              {{ saving ? 'Creating...' : 'Create Account' }}
+            </button>
+          </form>
+
+          <!-- Account type guide -->
+          <div class="type-guide">
+            <p class="guide-title">Account types</p>
+            <div class="guide-item">
+              <span class="guide-dot cheque"></span>
+              <div>
+                <p class="guide-name">Cheque</p>
+                <p class="guide-desc">Day-to-day transactional account</p>
+              </div>
+            </div>
+            <div class="guide-item">
+              <span class="guide-dot savings"></span>
+              <div>
+                <p class="guide-name">Savings</p>
+                <p class="guide-desc">Earn interest on your balance</p>
+              </div>
+            </div>
+            <div class="guide-item">
+              <span class="guide-dot fixed"></span>
+              <div>
+                <p class="guide-name">Fixed Deposit</p>
+                <p class="guide-desc">Fixed-term higher-yield savings</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   `,
   styles: [`
-    .page { padding: 24px; max-width: 1000px; margin: 0 auto; }
-    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
-    .header h1 { margin: 0; }
-    .layout { display: grid; grid-template-columns: 1fr 380px; gap: 24px; }
-    .account-card { margin-bottom: 16px; }
-    .account-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
-    .account-header h3 { margin: 0 0 4px; }
-    .chip { background: #e3f2fd; color: #1976d2; padding: 2px 10px; border-radius: 12px; font-size: 12px; }
-    .balance { margin: 0; font-size: 22px; font-weight: 700; }
-    .full-width { width: 100%; margin-bottom: 12px; }
-    .error { color: #f44336; font-size: 14px; }
-    .empty { color: #999; text-align: center; padding: 40px; }
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .accounts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    /* Physical bank card style */
+    .bank-card {
+      border-radius: 16px;
+      padding: 24px;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      min-height: 180px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.18);
+      position: relative;
+      overflow: hidden;
+    }
+    .bank-card::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.06);
+    }
+    .bank-card::after {
+      content: '';
+      position: absolute;
+      bottom: -30px; left: 20px;
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.04);
+    }
+
+    .card-cheque       { background: linear-gradient(145deg, #0D1B2A 0%, #1E3A5F 100%); }
+    .card-savings      { background: linear-gradient(145deg, #064E3B 0%, #059669 100%); }
+    .card-fixeddeposit { background: linear-gradient(145deg, #3B0764 0%, #7C3AED 100%); }
+
+    .bank-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .bank-card-type {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      opacity: .7;
+    }
+    .bank-card-name {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -.2px;
+    }
+    .bank-card-balance {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .bank-card-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      opacity: .6;
+    }
+    .bank-card-amount {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -.3px;
+    }
+    .bank-card-btn {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,.8);
+      border: 1px solid rgba(255,255,255,.25);
+      padding: 7px 14px;
+      border-radius: 8px;
+      transition: all .15s;
+      width: fit-content;
+      position: relative;
+      z-index: 1;
+    }
+    .bank-card-btn:hover {
+      background: rgba(255,255,255,.1);
+      color: #fff;
+      border-color: rgba(255,255,255,.4);
+    }
+
+    /* Create card */
+    .create-card { position: sticky; top: 80px; }
+
+    .select-wrap { position: relative; }
+    .select-wrap select {
+      width: 100%;
+      padding: 11px 36px 11px 14px;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      color: #0F172A;
+      background: #fff;
+      outline: none;
+      appearance: none;
+      cursor: pointer;
+      transition: border-color .15s, box-shadow .15s;
+    }
+    .select-wrap select:focus {
+      border-color: #00C896;
+      box-shadow: 0 0 0 3px rgba(0,200,150,.12);
+    }
+    .select-arrow {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+
+    .full-width { width: 100%; margin-top: 4px; }
+
+    .error-banner {
+      background: #FEE2E2;
+      color: #B91C1C;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+
+    /* Type guide */
+    .type-guide {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid #F1F5F9;
+    }
+    .guide-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #94A3B8;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      margin: 0 0 12px;
+    }
+    .guide-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .guide-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-top: 4px;
+      flex-shrink: 0;
+    }
+    .guide-dot.cheque  { background: #1E3A5F; }
+    .guide-dot.savings { background: #059669; }
+    .guide-dot.fixed   { background: #7C3AED; }
+    .guide-name {
+      margin: 0 0 1px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #374151;
+    }
+    .guide-desc { margin: 0; font-size: 12px; color: #94A3B8; }
+
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      .create-card { position: static; }
+    }
   `]
 })
 export class AccountsComponent implements OnInit {
