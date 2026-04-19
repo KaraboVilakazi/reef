@@ -12,20 +12,14 @@ using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // ── Database — support Railway's DATABASE_URL env var ──────────────────────
+// Npgsql 6+ natively handles postgres:// URIs, so pass it directly.
 var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
-string connectionString;
-if (!string.IsNullOrEmpty(databaseUrl))
-{
-    // Railway provides postgres://user:pass@host:port/db — convert to Npgsql format
-    var uri = new Uri(databaseUrl);
-    var userInfo = uri.UserInfo.Split(':');
-    connectionString = $"Host={uri.Host};Port={uri.Port};Database={uri.AbsolutePath.TrimStart('/')};Username={userInfo[0]};Password={userInfo[1]};SSL Mode=Disable";
-}
-else
-{
-    connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
-}
-builder.Services.AddDbContext<ReefDbContext>(options => options.UseNpgsql(connectionString));
+var connectionString = !string.IsNullOrEmpty(databaseUrl)
+    ? databaseUrl
+    : builder.Configuration.GetConnectionString("DefaultConnection")!;
+
+builder.Services.AddDbContext<ReefDbContext>(options =>
+    options.UseNpgsql(connectionString, o => o.EnableRetryOnFailure()));
 
 // ── JWT Authentication ──────────────────────────────────────────────────────
 var jwtSecret = builder.Configuration["Jwt:Secret"]!;
