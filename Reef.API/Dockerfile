@@ -1,9 +1,9 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY Reef.API.csproj .
-RUN dotnet restore
-COPY . .
-RUN dotnet publish -c Release -o /app/publish
+COPY Reef.API/Reef.API.csproj Reef.API/
+RUN dotnet restore Reef.API/Reef.API.csproj
+COPY Reef.API/ Reef.API/
+RUN dotnet publish Reef.API/Reef.API.csproj -c Release -o /app/publish
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
