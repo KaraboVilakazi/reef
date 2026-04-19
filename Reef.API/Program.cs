@@ -11,9 +11,11 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ── Database — support Railway's DATABASE_URL env var ──────────────────────
-// Npgsql 6+ natively handles postgres:// URIs, so pass it directly.
-var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+// ── Database — support Railway's DATABASE_PUBLIC_URL env var ───────────────
+// Railway injects DATABASE_URL as the internal hostname (unreachable without
+// private networking). DATABASE_PUBLIC_URL is the externally reachable proxy.
+var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_PUBLIC_URL")
+                  ?? Environment.GetEnvironmentVariable("DATABASE_URL");
 var connectionString = !string.IsNullOrEmpty(databaseUrl)
     ? databaseUrl
     : builder.Configuration.GetConnectionString("DefaultConnection")!;
