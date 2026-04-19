@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'RAILWAY_API_URL/api/v1',
-  hubUrl: 'RAILWAY_API_URL/hubs'
+  apiUrl: 'https://reef-production-8d6a.up.railway.app/api/v1',
+  hubUrl: 'https://reef-production-8d6a.up.railway.app/hubs'
 };
