@@ -16,7 +16,6 @@ import { Account } from '../../core/models/account.models';
           <h1>Accounts</h1>
           <p class="subtitle">Manage your linked bank accounts</p>
         </div>
-        <a class="btn-outline" routerLink="/dashboard">← Back</a>
       </div>
 
       <div class="layout">

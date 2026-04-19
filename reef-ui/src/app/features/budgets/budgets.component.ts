@@ -16,7 +16,6 @@ import { Budget } from '../../core/models/budget.models';
           <h1>Budgets</h1>
           <p class="subtitle">{{ monthName }} spending limits</p>
         </div>
-        <a class="btn-outline" routerLink="/dashboard">← Back</a>
       </div>
 
       <div class="layout">
