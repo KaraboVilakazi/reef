@@ -85,6 +85,24 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
             Already have an account? <a routerLink="/auth/login">Sign in</a>
           </p>
         </div>
+
+        <!-- Trust badges -->
+        <div class="trust-row">
+          <div class="trust-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <span>Bank-grade encryption</span>
+          </div>
+          <div class="trust-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>FSCA regulated</span>
+          </div>
+          <div class="trust-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>Real-time alerts</span>
+          </div>
+        </div>
+
+        <p class="byline">Designed &amp; built by <strong>Karabo Vilakazi</strong></p>
       </div>
     </div>
   `,
@@ -164,11 +182,70 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
     .form-panel {
       flex: 1;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 48px;
       background: #F0F2F7;
+      position: relative;
+      overflow: hidden;
+      gap: 28px;
     }
+    .form-panel::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 420px; height: 420px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(212,175,55,.13) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .form-panel::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: -80px;
+      width: 340px; height: 340px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(11,45,26,.09) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Trust badges */
+    .trust-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      position: relative;
+      z-index: 1;
+      animation: fadeInUp .5s .25s ease both;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .trust-badge {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255,255,255,.7);
+      border: 1px solid rgba(212,175,55,.25);
+      border-radius: 20px;
+      padding: 7px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #374151;
+      backdrop-filter: blur(4px);
+      white-space: nowrap;
+    }
+    .trust-badge svg { color: #2C6457; flex-shrink: 0; }
+
+    .byline {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      font-size: 12px;
+      color: #94A3B8;
+      animation: fadeIn .6s .4s ease both;
+    }
+    .byline strong { color: #64748B; font-weight: 600; }
     .form-inner {
       width: 100%;
       max-width: 420px;

@@ -40,6 +40,7 @@ import { AuthService } from './core/services/auth.service';
           </nav>
 
           <div class="sidebar-footer">
+            <p class="sidebar-byline">Built by Karabo Vilakazi</p>
             <div class="user-row">
               <div class="user-avatar">{{ initials }}</div>
               <div class="user-info">
@@ -140,6 +141,13 @@ import { AuthService } from './core/services/auth.service';
     .sidebar-footer {
       padding: 16px 12px;
       border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .sidebar-byline {
+      margin: 0 0 12px;
+      font-size: 10px;
+      color: rgba(255,255,255,.2);
+      letter-spacing: .3px;
+      text-align: center;
     }
     .user-row {
       display: flex;
