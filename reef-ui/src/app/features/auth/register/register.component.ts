@@ -93,7 +93,7 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
       flex: 0 0 45%;
       position: relative;
       overflow: hidden;
-      background: url('auth-hero-2.png') center top / cover no-repeat;
+      background: url('/auth-hero-2.png') center top / cover no-repeat;
       display: flex;
       align-items: flex-end;
       padding: 48px;
