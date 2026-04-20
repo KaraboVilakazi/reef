@@ -13,7 +13,10 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
       <!-- Left brand panel -->
       <div class="brand-panel">
         <div class="brand-inner">
-          <img src="reef-lockup.png" alt="Reef" class="brand-lockup" />
+          <div class="brand-title-row">
+            <img src="reef-icon-512.png" alt="Reef" style="width:48px;height:48px;object-fit:contain" />
+            <h1 class="brand-name">Reef</h1>
+          </div>
           <p class="brand-tagline">Your money, clearly.</p>
           <ul class="brand-features">
             <li>
@@ -138,12 +141,18 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
       max-width: 320px;
       animation: fadeInUp .5s .15s ease both;
     }
-    .brand-lockup {
-      height: 52px;
-      width: auto;
-      display: block;
-      margin-bottom: 16px;
-      filter: drop-shadow(0 1px 3px rgba(0,0,0,.5));
+    .brand-title-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .brand-name {
+      color: #fff;
+      font-size: 34px;
+      font-weight: 700;
+      margin: 0;
+      letter-spacing: -.5px;
     }
     .brand-tagline {
       color: rgba(255,255,255,.75);
