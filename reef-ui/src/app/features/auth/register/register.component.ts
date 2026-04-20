@@ -14,7 +14,7 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
       <div class="brand-panel">
         <div class="brand-inner">
           <div class="brand-title-row">
-            <img src="reef-icon-512.png" alt="Reef" style="width:52px;height:52px;object-fit:contain;filter:brightness(1.4) saturate(0.8)" />
+            <img src="reef-icon-512.png" alt="Reef" style="width:52px;height:52px;object-fit:contain;filter:brightness(2.4) saturate(0.45)" />
             <h1 class="brand-name">Reef</h1>
           </div>
           <p class="brand-tagline">Your money, clearly.</p>
@@ -41,9 +41,6 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
 
       <!-- Right form panel -->
       <div class="form-panel">
-
-        <!-- Watermark logo -->
-        <img src="reef-icon-512.png" alt="" class="panel-watermark" />
 
         <!-- Social proof -->
         <div class="social-proof">
