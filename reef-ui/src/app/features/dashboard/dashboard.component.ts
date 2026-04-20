@@ -20,13 +20,21 @@ Chart.register(...registerables);
   imports: [RouterLink, CurrencyPipe, NgClass, BaseChartDirective],
   template: `
     <div class="page">
-      <!-- Header -->
-      <div class="page-header">
-        <div>
-          <h1>Good {{ greeting }}, {{ user?.firstName }}</h1>
-          <p class="subtitle">{{ monthName }} financial overview</p>
+
+      <!-- Hero banner -->
+      <div class="hero-banner">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <div class="hero-left">
+            <p class="hero-greeting">Good {{ greeting }}, {{ user?.firstName }}</p>
+            <p class="hero-sub">{{ monthName }} financial overview</p>
+          </div>
+          <div class="hero-right">
+            <p class="hero-stat-label">Net Savings</p>
+            <p class="hero-stat-value">{{ summary?.netSavings | currency:'ZAR':'symbol':'1.0-0' }}</p>
+            <button class="hero-btn" routerLink="/accounts">+ New Account</button>
+          </div>
         </div>
-        <button class="btn-primary" routerLink="/accounts">+ New Account</button>
       </div>
 
       <!-- Summary stat cards -->
@@ -116,6 +124,77 @@ Chart.register(...registerables);
     </div>
   `,
   styles: [`
+    /* Hero banner */
+    .hero-banner {
+      position: relative;
+      height: 200px;
+      background: url('/auth-hero-2.png') center 25% / cover no-repeat;
+      overflow: hidden;
+      margin: -32px -24px 28px;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        100deg,
+        rgba(11,45,26,.88) 0%,
+        rgba(11,45,26,.60) 55%,
+        rgba(11,45,26,.20) 100%
+      );
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 36px;
+    }
+    .hero-greeting {
+      margin: 0 0 6px;
+      font-size: 26px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -.4px;
+    }
+    .hero-sub {
+      margin: 0;
+      font-size: 14px;
+      color: rgba(255,255,255,.65);
+    }
+    .hero-right {
+      text-align: right;
+    }
+    .hero-stat-label {
+      margin: 0 0 4px;
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255,255,255,.6);
+      text-transform: uppercase;
+      letter-spacing: .6px;
+    }
+    .hero-stat-value {
+      margin: 0 0 16px;
+      font-size: 28px;
+      font-weight: 700;
+      color: #D4AF37;
+      letter-spacing: -.5px;
+    }
+    .hero-btn {
+      background: #D4AF37;
+      color: #0B2D1A;
+      border: none;
+      border-radius: 8px;
+      padding: 9px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background .15s;
+    }
+    .hero-btn:hover { background: #B8960C; }
+
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
