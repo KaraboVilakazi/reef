@@ -39,6 +39,20 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
 
       <!-- Right form panel -->
       <div class="form-panel">
+
+        <!-- Social proof -->
+        <div class="social-proof">
+          <div class="avatars">
+            <div class="av" style="background:#0B2D1A">K</div>
+            <div class="av" style="background:#2C6457">T</div>
+            <div class="av" style="background:#D4AF37;color:#0B2D1A">N</div>
+            <div class="av" style="background:#1A5C3A">S</div>
+          </div>
+          <div class="proof-text">
+            <strong>4,200+ South Africans</strong> managing their money with Reef
+          </div>
+        </div>
+
         <div class="form-inner">
           <div class="form-logo">
             <img src="reef-lockup.png" alt="Reef" />
@@ -124,7 +138,7 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(to right, transparent 40%, rgba(0,0,0,.72) 100%),
+        linear-gradient(to right, transparent 40%, rgba(0,0,0,.42) 100%),
         linear-gradient(to bottom, rgba(11,45,26,.02) 0%, rgba(11,45,26,.35) 45%, rgba(11,45,26,.88) 100%);
       pointer-events: none;
     }
@@ -205,6 +219,41 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
       background: radial-gradient(circle, rgba(11,45,26,.09) 0%, transparent 70%);
       pointer-events: none;
     }
+
+    /* Social proof */
+    .social-proof {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(255,255,255,.75);
+      border: 1px solid rgba(44,100,87,.15);
+      border-radius: 14px;
+      padding: 12px 18px;
+      position: relative;
+      z-index: 1;
+      backdrop-filter: blur(4px);
+      animation: fadeInUp .4s .1s ease both;
+      max-width: 420px;
+      width: 100%;
+    }
+    .avatars { display: flex; }
+    .av {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: #fff;
+      margin-left: -8px;
+      flex-shrink: 0;
+    }
+    .av:first-child { margin-left: 0; }
+    .proof-text { font-size: 12.5px; color: #374151; line-height: 1.4; }
+    .proof-text strong { color: #0B2D1A; }
 
     /* Trust badges */
     .trust-row {

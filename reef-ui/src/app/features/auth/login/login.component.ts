@@ -128,7 +128,7 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(to right, transparent 40%, rgba(0,0,0,.72) 100%),
+        linear-gradient(to right, transparent 40%, rgba(0,0,0,.42) 100%),
         linear-gradient(to bottom, rgba(11,45,26,.02) 0%, rgba(11,45,26,.35) 45%, rgba(11,45,26,.88) 100%);
       pointer-events: none;
     }
