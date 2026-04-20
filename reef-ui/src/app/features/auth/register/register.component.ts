@@ -333,7 +333,9 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
       max-width: 100%;
       display: block;
       object-fit: contain;
-      filter: saturate(0.55) brightness(0.82);
+      object-position: left center;
+      margin-left: 2px;
+      filter: saturate(0.42) brightness(0.68);
     }
     .form-header { margin-bottom: 28px; }
     .form-header h2 {
