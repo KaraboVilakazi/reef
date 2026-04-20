@@ -17,7 +17,7 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
             <img src="reef-icon-512.png" alt="Reef" style="width:48px;height:48px;object-fit:contain;filter:saturate(0.42) brightness(0.68)" />
             <h1 class="brand-name">Reef</h1>
           </div>
-          <p class="brand-tagline">Your money, clearly.</p>
+          <p class="brand-tagline">Track spending, set budgets, and take control of your finances.</p>
           <ul class="brand-features">
             <li>
               <span class="feat-icon">&#10003;</span>
@@ -154,7 +154,7 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
     .brand-title-row {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 6px;
       margin-bottom: 10px;
     }
     .brand-name {
