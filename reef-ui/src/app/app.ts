@@ -13,8 +13,15 @@ import { AuthService } from './core/services/auth.service';
         <!-- Sidebar -->
         <aside class="sidebar">
           <div class="sidebar-brand">
-            <div class="brand-mark">R</div>
-            <span class="brand-name">Reef</span>
+            <svg width="160" height="40" viewBox="0 0 160 40" xmlns="http://www.w3.org/2000/svg">
+              <rect x="0" y="0" width="40" height="40" rx="10" fill="#00C896"/>
+              <rect x="11" y="10" width="5" height="20" fill="#0D1B2A"/>
+              <path d="M16 10 H26 A6 6 0 0 1 26 22 H16 Z" fill="#0D1B2A"/>
+              <path d="M16 21 L28 32 H22 L16 25 Z" fill="#0D1B2A"/>
+              <rect x="10" y="27" width="20" height="1.5" fill="#00C896"/>
+              <rect x="10" y="30" width="17" height="1.5" fill="#00C896"/>
+              <text x="52" y="26" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" fill="#FFFFFF" letter-spacing="-0.5">Reef</text>
+            </svg>
           </div>
 
           <nav class="sidebar-nav">
@@ -97,31 +104,9 @@ import { AuthService } from './core/services/auth.service';
     }
 
     .sidebar-brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 24px 20px 20px;
+      padding: 20px 20px 18px;
       border-bottom: 1px solid rgba(255,255,255,.06);
       margin-bottom: 8px;
-    }
-    .brand-mark {
-      width: 32px;
-      height: 32px;
-      background: #00C896;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 15px;
-      color: #0D1B2A;
-      flex-shrink: 0;
-    }
-    .brand-name {
-      font-size: 18px;
-      font-weight: 700;
-      color: #fff;
-      letter-spacing: -.3px;
     }
 
     .sidebar-nav {

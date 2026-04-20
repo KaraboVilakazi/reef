@@ -13,7 +13,12 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
       <!-- Left brand panel -->
       <div class="brand-panel">
         <div class="brand-inner">
-          <div class="brand-logo">R</div>
+          <svg width="56" height="56" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:20px">
+            <rect x="0" y="0" width="40" height="40" rx="10" fill="#00C896"/>
+            <rect x="11" y="10" width="5" height="20" fill="#0D1B2A"/>
+            <path d="M16 10 H26 A6 6 0 0 1 26 22 H16 Z" fill="#0D1B2A"/>
+            <path d="M16 21 L28 32 H22 L16 25 Z" fill="#0D1B2A"/>
+          </svg>
           <h1 class="brand-name">Reef</h1>
           <p class="brand-tagline">Your money, clearly.</p>
           <ul class="brand-features">
@@ -88,19 +93,6 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
       padding: 48px;
     }
     .brand-inner { max-width: 320px; }
-    .brand-logo {
-      width: 52px;
-      height: 52px;
-      background: #00C896;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      font-weight: 700;
-      color: #0D1B2A;
-      margin-bottom: 20px;
-    }
     .brand-name {
       color: #fff;
       font-size: 32px;
