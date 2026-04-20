@@ -14,7 +14,7 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
       <div class="brand-panel">
         <div class="brand-inner">
           <div style="background:rgba(255,255,255,.12);border-radius:20px;padding:14px;margin-bottom:20px;width:fit-content;backdrop-filter:blur(6px)">
-              <img src="reef-icon-512.png" alt="Reef" style="width:80px;height:80px;object-fit:contain;display:block" />
+              <img src="reef-icon-512.png" alt="Reef" style="width:80px;height:80px;object-fit:contain;display:block;filter:saturate(0.42) brightness(0.68)" />
             </div>
           <h1 class="brand-name">Reef</h1>
           <p class="brand-tagline">Your money, clearly.</p>
@@ -108,6 +108,7 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
       position: relative;
       z-index: 1;
       max-width: 320px;
+      animation: fadeInUp .5s .15s ease both;
     }
     .brand-name {
       color: #fff;
@@ -167,14 +168,17 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
       padding: 40px;
       box-shadow: 0 8px 32px rgba(0,0,0,.10);
       border-top: 3px solid #D4AF37;
+      animation: fadeInUp .4s ease both;
     }
     .form-logo {
       margin-bottom: 28px;
     }
     .form-logo img {
-      height: 30px;
+      height: 34px;
       width: auto;
+      max-width: 100%;
       display: block;
+      object-fit: contain;
     }
     .form-header { margin-bottom: 28px; }
     .form-header h2 {
@@ -234,9 +238,13 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
       font-family: inherit;
       cursor: pointer;
       margin-top: 4px;
-      transition: background .15s;
+      transition: background .15s, transform .15s, box-shadow .15s;
     }
-    .submit-btn:hover:not(:disabled) { background: #B8960C; }
+    .submit-btn:hover:not(:disabled) {
+      background: #B8960C;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(212,175,55,.3);
+    }
     .submit-btn:disabled { opacity: .6; cursor: not-allowed; }
 
     .switch-link {

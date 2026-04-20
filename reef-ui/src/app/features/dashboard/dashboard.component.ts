@@ -210,7 +210,16 @@ Chart.register(...registerables);
       display: flex;
       align-items: center;
       gap: 16px;
+      animation: fadeInUp .35s ease both;
+      transition: transform .2s, box-shadow .2s;
     }
+    .stat-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0,0,0,.09);
+    }
+    .stat-card:nth-child(1) { animation-delay: .05s; }
+    .stat-card:nth-child(2) { animation-delay: .12s; }
+    .stat-card:nth-child(3) { animation-delay: .19s; }
 
     .stat-icon {
       width: 44px;
@@ -259,12 +268,17 @@ Chart.register(...registerables);
       padding: 13px 0;
       border-bottom: 1px solid #F1F5F9;
       cursor: pointer;
-      transition: background .12s;
       border-radius: 8px;
       margin: 0 -8px;
       padding-left: 8px;
       padding-right: 8px;
+      transition: background .15s, transform .15s;
+      animation: slideInLeft .3s ease both;
     }
+    .account-row:nth-child(1) { animation-delay: .25s; }
+    .account-row:nth-child(2) { animation-delay: .32s; }
+    .account-row:nth-child(3) { animation-delay: .39s; }
+    .account-row:nth-child(4) { animation-delay: .46s; }
     .account-row:last-child { border-bottom: none; }
     .account-row:hover { background: #F8FAFC; }
 

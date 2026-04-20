@@ -139,6 +139,12 @@ import { Account } from '../../core/models/account.models';
       box-shadow: 0 8px 24px rgba(0,0,0,.18);
       position: relative;
       overflow: hidden;
+      animation: fadeInUp .35s ease both;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .bank-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 32px rgba(0,0,0,.22);
     }
     .bank-card::before {
       content: '';
