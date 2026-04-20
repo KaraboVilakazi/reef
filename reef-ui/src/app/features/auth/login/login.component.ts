@@ -13,7 +13,7 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
       <!-- Left brand panel -->
       <div class="brand-panel">
         <div class="brand-inner">
-          <img src="reef-icon-512.png" alt="Reef" style="width:64px;height:64px;object-fit:contain;margin-bottom:20px" />
+          <img src="reef-icon-512.png" alt="Reef" style="width:88px;height:88px;object-fit:contain;margin-bottom:20px" />
           <h1 class="brand-name">Reef</h1>
           <p class="brand-tagline">Your money, clearly.</p>
           <ul class="brand-features">
