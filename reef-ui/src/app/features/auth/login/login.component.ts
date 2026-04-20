@@ -13,8 +13,10 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
       <!-- Left brand panel -->
       <div class="brand-panel">
         <div class="brand-inner">
-          <img src="reef-icon-512.png" alt="Reef" style="width:80px;height:80px;object-fit:contain;display:block;margin-bottom:20px;filter:saturate(0.5) brightness(0.85)" />
-          <h1 class="brand-name">Reef</h1>
+          <div class="brand-title-row">
+            <img src="reef-icon-512.png" alt="Reef" style="width:52px;height:52px;object-fit:contain;filter:saturate(0.5) brightness(0.85)" />
+            <h1 class="brand-name">Reef</h1>
+          </div>
           <p class="brand-tagline">Your money, clearly.</p>
           <ul class="brand-features">
             <li>
@@ -39,6 +41,9 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
 
       <!-- Right form panel -->
       <div class="form-panel">
+
+        <!-- Watermark logo -->
+        <img src="reef-icon-512.png" alt="" class="panel-watermark" />
 
         <!-- Social proof -->
         <div class="social-proof">
@@ -128,7 +133,7 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(to right, transparent 40%, rgba(0,0,0,.42) 100%),
+        linear-gradient(to right, transparent 40%, rgba(0,0,0,.22) 100%),
         linear-gradient(to bottom, rgba(11,45,26,.02) 0%, rgba(11,45,26,.35) 45%, rgba(11,45,26,.88) 100%);
       pointer-events: none;
     }
@@ -138,11 +143,17 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
       max-width: 320px;
       animation: fadeInUp .5s .15s ease both;
     }
+    .brand-title-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 10px;
+    }
     .brand-name {
       color: #fff;
-      font-size: 32px;
+      font-size: 36px;
       font-weight: 700;
-      margin: 0 0 8px;
+      margin: 0;
       letter-spacing: -.5px;
     }
     .brand-tagline {
@@ -209,6 +220,21 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
       border-radius: 50%;
       background: radial-gradient(circle, rgba(11,45,26,.09) 0%, transparent 70%);
       pointer-events: none;
+    }
+
+    /* Watermark */
+    .panel-watermark {
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      object-fit: contain;
+      opacity: 0.045;
+      pointer-events: none;
+      z-index: 0;
+      filter: saturate(0) brightness(0);
+      right: -60px;
+      top: 50%;
+      transform: translateY(-50%);
     }
 
     /* Social proof */
