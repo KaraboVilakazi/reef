@@ -13,15 +13,19 @@ import { AuthService } from './core/services/auth.service';
         <!-- Sidebar -->
         <aside class="sidebar">
           <div class="sidebar-brand">
-            <svg width="160" height="40" viewBox="0 0 160 40" xmlns="http://www.w3.org/2000/svg">
-              <rect x="0" y="0" width="40" height="40" rx="10" fill="#00C896"/>
-              <rect x="11" y="10" width="5" height="20" fill="#0D1B2A"/>
-              <path d="M16 10 H26 A6 6 0 0 1 26 22 H16 Z" fill="#0D1B2A"/>
-              <path d="M16 21 L28 32 H22 L16 25 Z" fill="#0D1B2A"/>
-              <rect x="10" y="27" width="20" height="1.5" fill="#00C896"/>
-              <rect x="10" y="30" width="17" height="1.5" fill="#00C896"/>
-              <text x="52" y="26" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" fill="#FFFFFF" letter-spacing="-0.5">Reef</text>
-            </svg>
+            <!-- Icon + Wordmark lockup -->
+            <div class="brand-lockup">
+              <svg width="36" height="36" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <rect width="100" height="100" rx="20" fill="#00C896"/>
+                <rect x="18" y="18" width="13" height="50" rx="1.5" fill="#0D1B2A"/>
+                <path d="M31 18 H59 C76 18 79 27 79 35 C79 43 76 52 59 52 H31 Z" fill="#0D1B2A"/>
+                <path d="M31 26 H57 C67 26 70 30 70 35 C70 40 67 44 57 44 H31 Z" fill="#00C896"/>
+                <path d="M18 63 Q36 56 54 63 Q63 67 72 62" stroke="#0D1B2A" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+                <path d="M18 75 Q37 68 56 75 Q66 79 75 74" stroke="#0D1B2A" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+                <path d="M18 87 Q38 80 58 87 Q68 91 78 86" stroke="#0D1B2A" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+              </svg>
+              <span class="brand-name">Reef</span>
+            </div>
           </div>
 
           <nav class="sidebar-nav">
@@ -107,6 +111,17 @@ import { AuthService } from './core/services/auth.service';
       padding: 20px 20px 18px;
       border-bottom: 1px solid rgba(255,255,255,.06);
       margin-bottom: 8px;
+    }
+    .brand-lockup {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .brand-name {
+      font-size: 19px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -.3px;
     }
 
     .sidebar-nav {

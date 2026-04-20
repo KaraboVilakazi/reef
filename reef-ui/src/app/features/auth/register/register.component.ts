@@ -13,11 +13,14 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
       <!-- Left brand panel -->
       <div class="brand-panel">
         <div class="brand-inner">
-          <svg width="56" height="56" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:20px">
-            <rect x="0" y="0" width="40" height="40" rx="10" fill="#00C896"/>
-            <rect x="11" y="10" width="5" height="20" fill="#0D1B2A"/>
-            <path d="M16 10 H26 A6 6 0 0 1 26 22 H16 Z" fill="#0D1B2A"/>
-            <path d="M16 21 L28 32 H22 L16 25 Z" fill="#0D1B2A"/>
+          <svg width="60" height="60" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:20px">
+            <rect width="100" height="100" rx="20" fill="#00C896"/>
+            <rect x="18" y="18" width="13" height="50" rx="1.5" fill="#0D1B2A"/>
+            <path d="M31 18 H59 C76 18 79 27 79 35 C79 43 76 52 59 52 H31 Z" fill="#0D1B2A"/>
+            <path d="M31 26 H57 C67 26 70 30 70 35 C70 40 67 44 57 44 H31 Z" fill="#00C896"/>
+            <path d="M18 63 Q36 56 54 63 Q63 67 72 62" stroke="#0D1B2A" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+            <path d="M18 75 Q37 68 56 75 Q66 79 75 74" stroke="#0D1B2A" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+            <path d="M18 87 Q38 80 58 87 Q68 91 78 86" stroke="#0D1B2A" stroke-width="5.5" fill="none" stroke-linecap="round"/>
           </svg>
           <h1 class="brand-name">Reef</h1>
           <p class="brand-tagline">Your money, clearly.</p>
