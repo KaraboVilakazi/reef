@@ -217,7 +217,7 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
       align-items: center;
       gap: 7px;
       background: rgba(255,255,255,.7);
-      border: 1px solid rgba(44,100,87,.2);
+      border: 1px solid rgba(212,175,55,.25);
       border-radius: 20px;
       padding: 7px 14px;
       font-size: 12px;
@@ -244,7 +244,7 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
       border-radius: 16px;
       padding: 40px;
       box-shadow: 0 8px 32px rgba(0,0,0,.10);
-      border-top: 3px solid #2C6457;
+      border-top: 3px solid #D4AF37;
       animation: fadeInUp .4s ease both;
     }
     .form-logo {
@@ -256,6 +256,7 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
       max-width: 100%;
       display: block;
       object-fit: contain;
+      filter: saturate(0.42) brightness(0.68);
     }
     .form-header { margin-bottom: 28px; }
     .form-header h2 {
