@@ -42,9 +42,12 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
       <!-- Right form panel -->
       <div class="form-panel">
         <div class="form-inner">
+          <div class="form-logo">
+            <img src="reef-lockup.png" alt="Reef" />
+          </div>
           <div class="form-header">
             <h2>Welcome back</h2>
-            <p>Sign in to your Reef account</p>
+            <p>Sign in to your account</p>
           </div>
 
           <form [formGroup]="form" (ngSubmit)="submit()">
@@ -159,10 +162,19 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
     .form-inner {
       width: 100%;
       max-width: 400px;
-      background: #fff;
+      background: linear-gradient(160deg, #fffef9 0%, #fff 100%);
       border-radius: 16px;
       padding: 40px;
-      box-shadow: 0 4px 24px rgba(0,0,0,.08);
+      box-shadow: 0 8px 32px rgba(0,0,0,.10);
+      border-top: 3px solid #D4AF37;
+    }
+    .form-logo {
+      margin-bottom: 28px;
+    }
+    .form-logo img {
+      height: 30px;
+      width: auto;
+      display: block;
     }
     .form-header { margin-bottom: 28px; }
     .form-header h2 {
