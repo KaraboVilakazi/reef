@@ -123,7 +123,8 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
       background: url('/auth-hero-2.png') center 45% / cover no-repeat;
       display: flex;
       align-items: flex-end;
-      padding: 48px;
+      justify-content: flex-end;
+      padding: 48px 56px 48px 48px;
     }
     .brand-panel::before {
       content: '';
@@ -331,7 +332,7 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
       display: block;
       object-fit: contain;
       object-position: left center;
-      margin-left: 2px;
+      margin-left: 8px;
       filter: saturate(0.42) brightness(0.68);
     }
     .form-header { margin-bottom: 28px; }
