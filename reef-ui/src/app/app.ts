@@ -13,19 +13,7 @@ import { AuthService } from './core/services/auth.service';
         <!-- Sidebar -->
         <aside class="sidebar">
           <div class="sidebar-brand">
-            <!-- Icon + Wordmark lockup -->
-            <div class="brand-lockup">
-              <svg width="36" height="36" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <rect width="100" height="100" rx="20" fill="#00C896"/>
-                <rect x="18" y="18" width="13" height="50" rx="1.5" fill="#0D1B2A"/>
-                <path d="M31 18 H59 C76 18 79 27 79 35 C79 43 76 52 59 52 H31 Z" fill="#0D1B2A"/>
-                <path d="M31 26 H57 C67 26 70 30 70 35 C70 40 67 44 57 44 H31 Z" fill="#00C896"/>
-                <path d="M18 63 Q36 56 54 63 Q63 67 72 62" stroke="#0D1B2A" stroke-width="5.5" fill="none" stroke-linecap="round"/>
-                <path d="M18 75 Q37 68 56 75 Q66 79 75 74" stroke="#0D1B2A" stroke-width="5.5" fill="none" stroke-linecap="round"/>
-                <path d="M18 87 Q38 80 58 87 Q68 91 78 86" stroke="#0D1B2A" stroke-width="5.5" fill="none" stroke-linecap="round"/>
-              </svg>
-              <span class="brand-name">Reef</span>
-            </div>
+            <img src="reef-lockup.png" class="brand-lockup-img" alt="Reef" />
           </div>
 
           <nav class="sidebar-nav">
@@ -112,16 +100,10 @@ import { AuthService } from './core/services/auth.service';
       border-bottom: 1px solid rgba(255,255,255,.06);
       margin-bottom: 8px;
     }
-    .brand-lockup {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .brand-name {
-      font-size: 19px;
-      font-weight: 700;
-      color: #fff;
-      letter-spacing: -.3px;
+    .brand-lockup-img {
+      height: 36px;
+      width: auto;
+      display: block;
     }
 
     .sidebar-nav {
