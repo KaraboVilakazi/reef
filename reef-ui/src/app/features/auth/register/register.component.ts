@@ -13,9 +13,7 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
       <!-- Left brand panel -->
       <div class="brand-panel">
         <div class="brand-inner">
-          <div style="background:rgba(255,255,255,.12);border-radius:20px;padding:14px;margin-bottom:20px;width:fit-content;backdrop-filter:blur(6px)">
-              <img src="reef-icon-512.png" alt="Reef" style="width:80px;height:80px;object-fit:contain;display:block;filter:saturate(0.42) brightness(0.68)" />
-            </div>
+          <img src="reef-icon-512.png" alt="Reef" style="width:80px;height:80px;object-fit:contain;display:block;margin-bottom:20px;filter:saturate(0.5) brightness(0.85)" />
           <h1 class="brand-name">Reef</h1>
           <p class="brand-tagline">Your money, clearly.</p>
           <ul class="brand-features">
@@ -265,7 +263,7 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
       max-width: 100%;
       display: block;
       object-fit: contain;
-      filter: saturate(0.42) brightness(0.68);
+      filter: saturate(0.55) brightness(0.82);
     }
     .form-header { margin-bottom: 28px; }
     .form-header h2 {

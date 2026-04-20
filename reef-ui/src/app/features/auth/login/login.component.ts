@@ -13,9 +13,7 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
       <!-- Left brand panel -->
       <div class="brand-panel">
         <div class="brand-inner">
-          <div style="background:rgba(255,255,255,.12);border-radius:20px;padding:14px;margin-bottom:20px;width:fit-content;backdrop-filter:blur(6px)">
-              <img src="reef-icon-512.png" alt="Reef" style="width:80px;height:80px;object-fit:contain;display:block;filter:saturate(0.42) brightness(0.68)" />
-            </div>
+          <img src="reef-icon-512.png" alt="Reef" style="width:80px;height:80px;object-fit:contain;display:block;margin-bottom:20px;filter:saturate(0.5) brightness(0.85)" />
           <h1 class="brand-name">Reef</h1>
           <p class="brand-tagline">Your money, clearly.</p>
           <ul class="brand-features">
@@ -41,6 +39,20 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
 
       <!-- Right form panel -->
       <div class="form-panel">
+
+        <!-- Social proof -->
+        <div class="social-proof">
+          <div class="avatars">
+            <div class="av" style="background:#0B2D1A">K</div>
+            <div class="av" style="background:#2C6457">T</div>
+            <div class="av" style="background:#D4AF37;color:#0B2D1A">N</div>
+            <div class="av" style="background:#1A5C3A">S</div>
+          </div>
+          <div class="proof-text">
+            <strong>4,200+ South Africans</strong> managing their money with Reef
+          </div>
+        </div>
+
         <div class="form-inner">
           <div class="form-logo">
             <img src="reef-lockup.png" alt="Reef" />
@@ -201,6 +213,47 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
       pointer-events: none;
     }
 
+    /* Social proof */
+    .social-proof {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(255,255,255,.75);
+      border: 1px solid rgba(44,100,87,.15);
+      border-radius: 14px;
+      padding: 12px 18px;
+      position: relative;
+      z-index: 1;
+      backdrop-filter: blur(4px);
+      animation: fadeInUp .4s .1s ease both;
+      max-width: 400px;
+      width: 100%;
+    }
+    .avatars {
+      display: flex;
+    }
+    .av {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: #fff;
+      margin-left: -8px;
+      flex-shrink: 0;
+    }
+    .av:first-child { margin-left: 0; }
+    .proof-text {
+      font-size: 12.5px;
+      color: #374151;
+      line-height: 1.4;
+    }
+    .proof-text strong { color: #0B2D1A; }
+
     /* Trust badges */
     .trust-row {
       display: flex;
@@ -256,7 +309,7 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
       max-width: 100%;
       display: block;
       object-fit: contain;
-      filter: saturate(0.42) brightness(0.68);
+      filter: saturate(0.55) brightness(0.82);
     }
     .form-header { margin-bottom: 28px; }
     .form-header h2 {
