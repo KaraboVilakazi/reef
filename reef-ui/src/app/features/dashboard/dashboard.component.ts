@@ -201,7 +201,7 @@ Chart.register(...registerables);
       flex-shrink: 0;
       color: #fff;
     }
-    .avatar-cheque       { background: linear-gradient(135deg, #0D1B2A, #1E3A5F); }
+    .avatar-cheque       { background: linear-gradient(135deg, #0B2D1A, #1A5C3A); }
     .avatar-savings      { background: linear-gradient(135deg, #065F46, #059669); }
     .avatar-fixeddeposit { background: linear-gradient(135deg, #4C1D95, #7C3AED); }
 

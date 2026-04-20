@@ -157,7 +157,7 @@ import { Account } from '../../core/models/account.models';
       background: rgba(255,255,255,.04);
     }
 
-    .card-cheque       { background: linear-gradient(145deg, #0D1B2A 0%, #1E3A5F 100%); }
+    .card-cheque       { background: linear-gradient(145deg, #0B2D1A 0%, #1A5C3A 100%); }
     .card-savings      { background: linear-gradient(145deg, #064E3B 0%, #059669 100%); }
     .card-fixeddeposit { background: linear-gradient(145deg, #3B0764 0%, #7C3AED 100%); }
 
@@ -232,8 +232,8 @@ import { Account } from '../../core/models/account.models';
       transition: border-color .15s, box-shadow .15s;
     }
     .select-wrap select:focus {
-      border-color: #00C896;
-      box-shadow: 0 0 0 3px rgba(0,200,150,.12);
+      border-color: #D4AF37;
+      box-shadow: 0 0 0 3px rgba(212,175,55,.15);
     }
     .select-arrow {
       position: absolute;
@@ -281,7 +281,7 @@ import { Account } from '../../core/models/account.models';
       margin-top: 4px;
       flex-shrink: 0;
     }
-    .guide-dot.cheque  { background: #1E3A5F; }
+    .guide-dot.cheque  { background: #1A5C3A; }
     .guide-dot.savings { background: #059669; }
     .guide-dot.fixed   { background: #7C3AED; }
     .guide-name {

@@ -81,13 +81,29 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
     /* Left panel */
     .brand-panel {
       flex: 0 0 45%;
-      background: linear-gradient(160deg, #0D1B2A 0%, #1E3A5F 100%);
+      position: relative;
+      overflow: hidden;
+      background: url('auth-hero-1.png') center top / cover no-repeat;
       display: flex;
-      align-items: center;
-      justify-content: center;
+      align-items: flex-end;
       padding: 48px;
     }
-    .brand-inner { max-width: 320px; }
+    .brand-panel::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(11,45,26,.15) 0%,
+        rgba(11,45,26,.55) 50%,
+        rgba(11,45,26,.88) 100%
+      );
+    }
+    .brand-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 320px;
+    }
     .brand-name {
       color: #fff;
       font-size: 32px;
@@ -96,9 +112,9 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
       letter-spacing: -.5px;
     }
     .brand-tagline {
-      color: rgba(255,255,255,.55);
+      color: rgba(255,255,255,.75);
       font-size: 16px;
-      margin: 0 0 40px;
+      margin: 0 0 32px;
     }
     .brand-features {
       list-style: none;
@@ -112,18 +128,18 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
       display: flex;
       align-items: center;
       gap: 12px;
-      color: rgba(255,255,255,.75);
+      color: rgba(255,255,255,.85);
       font-size: 14px;
     }
     .feat-icon {
       width: 22px;
       height: 22px;
-      background: rgba(0,200,150,.2);
+      background: rgba(212,175,55,.25);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #00C896;
+      color: #D4AF37;
       font-size: 12px;
       font-weight: 700;
       flex-shrink: 0;
@@ -178,8 +194,8 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
       box-sizing: border-box;
     }
     .field input:focus {
-      border-color: #00C896;
-      box-shadow: 0 0 0 3px rgba(0,200,150,.12);
+      border-color: #D4AF37;
+      box-shadow: 0 0 0 3px rgba(212,175,55,.15);
     }
     .field input::placeholder { color: #CBD5E1; }
 
@@ -195,8 +211,8 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
     .submit-btn {
       width: 100%;
       padding: 12px;
-      background: #00C896;
-      color: #0D1B2A;
+      background: #D4AF37;
+      color: #0B2D1A;
       border: none;
       border-radius: 8px;
       font-size: 15px;
@@ -206,7 +222,7 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
       margin-top: 4px;
       transition: background .15s;
     }
-    .submit-btn:hover:not(:disabled) { background: #00A87E; }
+    .submit-btn:hover:not(:disabled) { background: #B8960C; }
     .submit-btn:disabled { opacity: .6; cursor: not-allowed; }
 
     .switch-link {
@@ -215,7 +231,7 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
       color: #64748B;
       margin: 20px 0 0;
     }
-    .switch-link a { color: #00A87E; font-weight: 500; }
+    .switch-link a { color: #B8960C; font-weight: 500; }
     .switch-link a:hover { text-decoration: underline; }
 
     @media (max-width: 768px) {

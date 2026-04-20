@@ -14,11 +14,11 @@ html {
 }
 
 :root {
-  --navy:         #0D1B2A;
-  --navy-soft:    #1E3A5F;
-  --teal:         #00C896;
-  --teal-dark:    #00A87E;
-  --teal-light:   #E6FAF5;
+  --navy:         #0B2D1A;
+  --navy-soft:    #1A5C3A;
+  --teal:         #D4AF37;
+  --teal-dark:    #B8960C;
+  --teal-light:   #FBF3D5;
   --coral:        #EF4444;
   --coral-light:  #FEE2E2;
   --green:        #16A34A;
@@ -177,7 +177,7 @@ a { color: inherit; text-decoration: none; }
 
     &:focus {
       border-color: var(--teal);
-      box-shadow: 0 0 0 3px rgba(0, 200, 150, .12);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, .15);
     }
 
     &::placeholder { color: #CBD5E1; }

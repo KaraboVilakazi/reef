@@ -88,7 +88,7 @@ import { AuthService } from './core/services/auth.service';
     .sidebar {
       width: 240px;
       flex-shrink: 0;
-      background: #0D1B2A;
+      background: #0B2D1A;
       display: flex;
       flex-direction: column;
       height: 100vh;
@@ -134,7 +134,7 @@ import { AuthService } from './core/services/auth.service';
       background: rgba(255,255,255,.1);
     }
     .nav-item.active svg {
-      color: #00C896;
+      color: #D4AF37;
     }
 
     .sidebar-footer {
@@ -151,8 +151,8 @@ import { AuthService } from './core/services/auth.service';
       width: 34px;
       height: 34px;
       border-radius: 50%;
-      background: #00C896;
-      color: #0D1B2A;
+      background: #D4AF37;
+      color: #0B2D1A;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -240,7 +240,7 @@ import { AuthService } from './core/services/auth.service';
       width: 34px;
       height: 34px;
       border-radius: 50%;
-      background: #0D1B2A;
+      background: #0B2D1A;
       color: #fff;
       display: flex;
       align-items: center;
