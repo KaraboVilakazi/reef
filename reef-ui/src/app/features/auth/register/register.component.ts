@@ -123,12 +123,10 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(
-        to bottom,
-        rgba(11,45,26,.02) 0%,
-        rgba(11,45,26,.35) 45%,
-        rgba(11,45,26,.88) 100%
-      );
+      background:
+        linear-gradient(to right, transparent 40%, rgba(0,0,0,.72) 100%),
+        linear-gradient(to bottom, rgba(11,45,26,.02) 0%, rgba(11,45,26,.35) 45%, rgba(11,45,26,.88) 100%);
+      pointer-events: none;
     }
     .brand-inner {
       position: relative;
@@ -327,6 +325,7 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
       cursor: pointer;
       margin-top: 4px;
       transition: background .15s, transform .15s, box-shadow .15s;
+      animation: goldPulse 2.4s ease-in-out infinite;
     }
     .submit-btn:hover:not(:disabled) {
       background: #B8960C;
