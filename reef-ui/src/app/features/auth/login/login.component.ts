@@ -14,7 +14,7 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
       <div class="brand-panel">
         <div class="brand-inner">
           <div class="brand-title-row">
-            <img src="reef-icon-512.png" alt="Reef" style="width:52px;height:52px;object-fit:contain;filter:brightness(2.4) saturate(0.45)" />
+            <img src="reef-icon-512.png" alt="Reef" style="width:52px;height:52px;object-fit:contain;filter:saturate(0.42) brightness(0.68)" />
             <h1 class="brand-name">Reef</h1>
           </div>
           <p class="brand-tagline">Your money, clearly.</p>
