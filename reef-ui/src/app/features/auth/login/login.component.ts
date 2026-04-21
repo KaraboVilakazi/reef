@@ -60,7 +60,7 @@ import { FinanceHubService } from '../../../core/services/finance-hub.service';
             <img src="reef-lockup.png" alt="Reef" />
           </div>
           <div class="form-header">
-            <h2>Welcome back</h2>
+            <h2>Welcome!</h2>
             <p>Sign in to your account</p>
           </div>
 
